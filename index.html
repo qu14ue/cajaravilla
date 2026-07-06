@@ -2308,140 +2308,86 @@ h1 em, h2 em, h3 em,
    SEC 13 — ASESOR
    ============================================================ */
 
+/* Clon fiel de la sección asesor de Zequeira (foto en tarjeta 4/5 + fondo oscuro) */
 .asesor {
-  padding-block: 0;
-  background: var(--paper-warm);
+  background: var(--ink);
+  padding-block: clamp(72px, 9vw, 120px);
 }
 
 .asesor__grid {
   display: grid;
-  grid-template-columns: 2fr 3fr;
-  min-height: 560px;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(32px, 4.5vw, 72px);
+  align-items: center;
 }
 
-@media (max-width:860px){
+@media (max-width:900px){
   .asesor__grid {
     grid-template-columns: 1fr;
   }
 }
 
 .asesor__photo {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
   overflow: hidden;
-  min-height: 420px;
-  background: linear-gradient(160deg, var(--paper-warm) 0%, var(--line) 100%);
-}
-
-@media (max-width:860px){
-  .asesor__photo {
-    min-height: 340px;
-  }
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 5;
+  background: #1a1a1a;
 }
 
 .asesor__photo img {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: auto;
-  max-width: none;
+  width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  transform: translateX(-50%);
-}
-
-.asesor__copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 80px 64px;
-}
-
-@media (max-width:860px){
-  .asesor__copy {
-    padding: 56px 28px;
-  }
+  object-fit: cover;
 }
 
 .asesor__copy .eyebrow {
-  margin-bottom: 20px;
-}
-
-.asesor__copy .h2 {
-  margin-bottom: 24px;
-}
-
-.asesor__copy .h2 em {
-  color: var(--orange);
-}
-
-.asesor__body {
-  margin-bottom: 32px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--ink-soft);
-}
-
-.asesor__body p {
-  margin-bottom: 14px;
-}
-
-.asesor__body p:last-child {
   margin-bottom: 0;
 }
 
-.asesor__creds {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
-}
-
-.asesor__cred {
-  padding: 5px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-.asesor__google {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  width: fit-content;
-  margin-bottom: 36px;
-  padding: 10px 16px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  background: var(--white);
-}
-
-.asesor__stars {
-  font-size: 13px;
-  letter-spacing: 1px;
-  color: #f4b400;
-}
-
-.asesor__google small {
-  font-size: 11px;
+.asesor__quote {
+  margin: 20px 0 24px;
+  font-family: var(--f-serif);
+  font-size: clamp(22px, 2.8vw, 36px);
   font-weight: 400;
-  color: var(--ink-muted);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--white);
+}
+
+.asesor__quote em {
+  font-style: normal;
+  color: var(--orange);
+}
+
+.asesor__name {
+  margin-bottom: 10px;
+  font-family: var(--f-serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.asesor__mat {
+  margin: 6px 0 28px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,.5);
 }
 
 .asesor__ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+@media (max-width:900px){
+  .asesor__ctas {
+    flex-direction: column;
+  }
+  .asesor__ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 
@@ -4202,33 +4148,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      13 · ASESOR
      ============================================================ -->
 <section id="asesor" class="asesor" data-screen-label="13 Asesor">
-  <div class="asesor__grid">
+  <div class="container">
+    <div class="asesor__grid">
 
-    <div class="asesor__photo">
+    <div class="asesor__photo reveal">
       <img src="assets/img/asesor/ariel-kuznicky-01.webp" alt="Ariel Kuznicki — AKPROP" decoding="async" loading="lazy">
     </div>
 
     <div class="asesor__copy reveal">
-      <div class="eyebrow">Tu interlocutor</div>
-      <h2 class="h2">Hablás directo<br>con <em>Ariel.</em><br>Sin intermediarios.</h2>
-
-      <div class="asesor__body">
-        <p>Ariel Kuznicki conduce cada operación de AKPROP personalmente. 10 años operando en la zona oeste de CABA, más de 200 propiedades vendidas y una regla simple: una venta, un interlocutor.</p>
-        <p>Si tenés preguntas sobre Cajaravilla 5006, las respondo yo. Si querés coordinar visita, la coordinás conmigo. Y si tenés que vender tu propiedad para comprar esta, también lo resolvemos juntos.</p>
-      </div>
-
-      <div class="asesor__creds">
-        <span class="asesor__cred">Mat. CUCICBA 8789</span>
-        <span class="asesor__cred">CMCPSI 6914</span>
-        <span class="asesor__cred">10 años en la zona</span>
-        <span class="asesor__cred">+200 propiedades</span>
-      </div>
-
-      <div class="asesor__google">
-        <span class="asesor__stars">★★★★★</span>
-        <span>5.0</span>
-        <small>· 26 reseñas en Google</small>
-      </div>
+      <div class="eyebrow eyebrow--light">Tu asesor</div>
+      <blockquote class="asesor__quote">Hablás directo con Ariel. Sin intermediarios, sin asistentes.<br><em>Cada consulta la atiende él.</em></blockquote>
+      <p class="asesor__name">Ariel Kuznicki</p>
+      <p class="asesor__mat">Mat. CUCICBA 8789 · CMCPSI 6914</p>
 
       <div class="asesor__ctas">
         <a
@@ -4237,15 +4168,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           target="_blank"
           rel="noopener"
           data-track="asesor_cta">
-          WhatsApp directo
+          Escribir por WhatsApp
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a class="btn btn--ghost btn--lg" href="mailto:ariel@akprop.com.ar" data-track="asesor_email">
-          ariel@akprop.com.ar
+        <a class="btn btn--ghost-light btn--lg" href="https://instagram.com/ak.prop" target="_blank" rel="noopener" data-track="asesor_instagram">
+          Visita nuestro Instagram
         </a>
       </div>
     </div>
 
+    </div>
   </div>
 </section>
 
