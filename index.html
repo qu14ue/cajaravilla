@@ -3547,7 +3547,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="gancho" data-screen-label="02 Gancho">
   <div class="gancho__sticky">
     <div class="gancho__image">
-      <img src="assets/img/living-01.webp" alt="Living comedor con pisos de madera tarugada — Cajaravilla 5006" decoding="async">
+      <img src="assets/img/living-01.webp" alt="Living comedor con pisos de madera tarugada — Cajaravilla 5006" decoding="async" loading="lazy">
     </div>
     <div class="gancho__text reveal">
       <div class="gancho__chapter">La búsqueda</div>
@@ -3603,7 +3603,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="pilar" data-screen-label="04 Pilar · Independencia">
   <div class="pilar__grid">
     <div class="pilar__image">
-      <img src="assets/img/entrada-01.webp" alt="Entrada independiente con reja y doble portón — Cajaravilla 5006" decoding="async">
+      <img src="assets/img/entrada-01.webp" alt="Entrada independiente con reja y doble portón — Cajaravilla 5006" decoding="async" loading="lazy">
     </div>
     <div class="pilar__text reveal">
       <div class="pilar__chapter">Entrada independiente</div>
@@ -3640,7 +3640,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="pilar pilar--soft" data-screen-label="05 Pilar · Tres plantas">
   <div class="pilar__grid pilar__grid--reverse">
     <div class="pilar__image">
-      <img src="assets/img/living-02.webp" alt="Cocina integrada al living con pisos de madera tarugada" decoding="async">
+      <img src="assets/img/living-02.webp" alt="Cocina integrada al living con pisos de madera tarugada" decoding="async" loading="lazy">
     </div>
     <div class="pilar__text reveal">
       <div class="pilar__chapter">Tres plantas</div>
@@ -3920,7 +3920,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <!-- 2 → entrada (cuadrada) -->
       <div class="galeria__item" data-idx="1">
-        <img src="assets/img/entrada-01.webp" alt="Entrada independiente con reja propia" decoding="async">
+        <img src="assets/img/entrada-01.webp" alt="Entrada independiente con reja propia" decoding="async" loading="lazy">
       </div>
       <!-- 3 → toilette (tall) -->
       <div class="galeria__item galeria__item--tall" data-idx="2">
@@ -3944,7 +3944,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <!-- 8 → patio con parrilla (cuadrada) -->
       <div class="galeria__item" data-idx="7">
-        <img src="assets/img/patio-01.webp" alt="Patio con parrilla propia" decoding="async">
+        <img src="assets/img/patio-01.webp" alt="Patio con parrilla propia" decoding="async" loading="lazy">
       </div>
       <!-- 9 → patio vista casa (tall) -->
       <div class="galeria__item galeria__item--tall" data-idx="8">
@@ -4747,21 +4747,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 })();
 
-/* ── Hero video background (desktop: horizontal · mobile: vertical liviano) ── */
+/* ── Hero video background (desktop: horizontal · mobile: vertical liviano) ──
+   Diferido: el video (~3 MB) se descarga DESPUÉS de la carga crítica (imagen
+   hero/LCP + texto), para que no compita con la primera pintada. */
 (function(){
   var v = document.querySelector('.hero__bg-video');
   if(!v) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var isDesktop = window.matchMedia('(min-width: 768px)').matches;
-  var el = document.createElement('source');
-  el.src = isDesktop ? 'assets/videos/hero-bg.mp4' : 'assets/videos/hero-bg-mobile.mp4';
-  el.type = 'video/mp4';
-  v.appendChild(el);
-  v.preload = 'auto';
-  v.addEventListener('playing', function(){ v.classList.add('is-playing'); }, { once: true });
-  v.load();
-  var p = v.play();
-  if(p && p.catch){ p.catch(function(){}); }
+
+  function startVideo(){
+    var isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    var el = document.createElement('source');
+    el.src = isDesktop ? 'assets/videos/hero-bg.mp4' : 'assets/videos/hero-bg-mobile.mp4';
+    el.type = 'video/mp4';
+    v.appendChild(el);
+    v.preload = 'auto';
+    v.addEventListener('playing', function(){ v.classList.add('is-playing'); }, { once: true });
+    v.load();
+    var p = v.play();
+    if(p && p.catch){ p.catch(function(){}); }
+  }
+
+  function schedule(){
+    if('requestIdleCallback' in window){ requestIdleCallback(startVideo, { timeout: 2500 }); }
+    else { setTimeout(startVideo, 1200); }
+  }
+
+  if(document.readyState === 'complete'){ schedule(); }
+  else { window.addEventListener('load', schedule, { once: true }); }
 })();
 
 /* ── Otras propiedades (fuente única data.akprop.com.ar · excluye la propia) ── */
